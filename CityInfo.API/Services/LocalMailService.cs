@@ -2,8 +2,8 @@
 {
     public class LocalMailService
     {
-        private string _mailTo = "kitouanna@gmail.com";
-        private string _mailFrom = "kitouanna@gmail.com";
+        private string _mailTo = "anna@gmail.com";
+        private string _mailFrom = "noreply@gmail.com";
 
             public void Send(string subject, string message)
         {
