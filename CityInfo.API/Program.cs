@@ -44,6 +44,9 @@ builder.Services.AddDbContext<CityInfoContext>(
     dbContextOptions=>dbContextOptions.UseSqlServer(
         builder.Configuration["ConnectionStrings:CityInfoDBCOnnectionString"]));
 
+builder.Services.AddScoped<ICityInfoRepository,CItyInfoRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 //Configure the HTTP request pipeline.
