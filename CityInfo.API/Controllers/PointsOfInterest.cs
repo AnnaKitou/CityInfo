@@ -151,13 +151,15 @@ namespace CityInfo.API.Controllers
                 return NotFound();
             }
 
-            var pointOfInterestFromStore = city.PointsOfInterest.
-             FirstOrDefault(x => x.Id == pointOfInterestId);
 
-            if (pointOfInterestFromStore == null)
+            var pointOfInterestEntity = await _cityInfoRepository
+                .GetPointOfInterestsForCityAsync(cityId, pointOfInterestId);
+
+            if (pointOfInterestEntity == null)
             {
                 return NotFound();
             }
+
             city.PointsOfInterest.Remove(pointOfInterestFromStore);
 
             _mailService.Send("Point of interest was deleted", $"Point of interest  {pointOfInterestFromStore.Name} with id {pointOfInterestFromStore.Id} was deleted");
