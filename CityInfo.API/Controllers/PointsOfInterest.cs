@@ -160,9 +160,10 @@ namespace CityInfo.API.Controllers
                 return NotFound();
             }
 
-            city.PointsOfInterest.Remove(pointOfInterestFromStore);
+            _cityInfoRepository.DeletePointOfInterest(pointOfInterestEntity);
 
-            _mailService.Send("Point of interest was deleted", $"Point of interest  {pointOfInterestFromStore.Name} with id {pointOfInterestFromStore.Id} was deleted");
+            _mailService.Send("Point of interest was deleted",
+                $"Point of interest  {pointOfInterestEntity.Name} with id {pointOfInterestEntity.Id} was deleted");
             return NoContent();
         }
 

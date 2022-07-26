@@ -54,14 +54,14 @@ namespace CityInfo.API.Services
             }
         }
 
-       public async Task<bool> SaveChangesAsync()
+        public async Task<bool> SaveChangesAsync()
         {
-            return(await _context.SaveChangesAsync()>=0);
+            return (await _context.SaveChangesAsync() >= 0);
         }
 
         public void DeletePointOfInterest(PointOfInterest pointOfInterest)
         {
-            throw new NotImplementedException();
+            _context.PointOfInterest.Remove(pointOfInterest);
         }
     }
 }
