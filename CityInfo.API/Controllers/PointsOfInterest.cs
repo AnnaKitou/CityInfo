@@ -62,35 +62,29 @@ namespace CityInfo.API.Controllers
             return Ok(_mapper.Map<PointOfInterestDTO>(pointOfInterest));
         }
 
-        //[HttpPost]
-        //public ActionResult<PointOfInterestDTO> CreatePointOfInterest(int cityId, PointOfInterestForCreationDTO pointofInterest)
-        //{
+        [HttpPost]
+        public async Task<ActionResult<PointOfInterestDTO>> CreatePointOfInterest(int cityId, PointOfInterestForCreationDTO pointofInterest)
+        {
 
-        //    var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
+            if (!await _cityInfoRepository.CityExistAsync(cityId))
+            {
+                return NotFound();
+            }
 
-        //    if (city == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var maxPointOfInterestId = _citiesDataStore.Cities.SelectMany(
-        //        c => c.PointsOfInterest).Max(x => x.Id);
-        //    var finalPointOfInterest = new PointOfInterestDTO()
-        //    {
-        //        Id = ++maxPointOfInterestId,
-        //        Name = pointofInterest.Name,
-        //        Description = pointofInterest.Description,
-        //    };
-        //    city.PointsOfInterest.Add(finalPointOfInterest);
 
-        //    return CreatedAtRoute("GetPointOfInterest",
-        //        new
-        //        {
-        //            cityId = cityId,
-        //            pointofInterestId = finalPointOfInterest.Id
-        //        }
-        //        , finalPointOfInterest);
-        //}
+            var finalPointOfInterest = _mapper.Map<Entities.PointOfInterest>(pointofInterest);    
+           
+        
+
+            return CreatedAtRoute("GetPointOfInterest",
+                new
+                {
+                    cityId = cityId,
+                    pointofInterestId = finalPointOfInterest.Id
+                }
+                , finalPointOfInterest);
+        }
 
         //[HttpPut("{pointofinterestid}")]
         //public ActionResult UpdatePointOfInterest(int cityid, int pointOfInterestId,
