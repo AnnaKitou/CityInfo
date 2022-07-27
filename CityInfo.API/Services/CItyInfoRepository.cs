@@ -21,7 +21,7 @@ namespace CityInfo.API.Services
         public async Task<(IEnumerable<City>,PaginationMetadata)> GetCitiesAsync(
             string? name, string? searchQuery, int pageNumber, int pageSize)
         {
-            //collection to Start From - Deffered Excecution
+            //collection to Start From - Deferred Execution
             var collection = _context.Cities as IQueryable<City>;
 
             if (!string.IsNullOrWhiteSpace(name))
