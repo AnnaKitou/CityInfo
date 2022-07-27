@@ -78,6 +78,11 @@ namespace CityInfo.API.Controllers
               DateTime.UtcNow,
               DateTime.UtcNow.AddHours(1),
               signingCredentials);
+
+            var tokenToReturn=new JwtSecurityTokenHandler()
+                .WriteToken(jwtSecurityToken);   
+
+            return Ok(tokenToReturn);
         }
 
         private CityInfoUser ValidateUserCredentials(string? userName, string? password)
