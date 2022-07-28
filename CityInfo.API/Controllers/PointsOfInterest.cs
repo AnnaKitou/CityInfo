@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointsofinterest")]
-    [Authorize]
+    [Authorize(Policy = "MustBeFromAntwerp")]
     [ApiController]
     public class PointsOfInterest : ControllerBase
     {
@@ -35,7 +35,7 @@ namespace CityInfo.API.Controllers
         {
             var cityName = User.Claims.FirstOrDefault(c => c.Type == "city")?.Value;
 
-            if(!await _cityInfoRepository.CityNameMatchesCityId(cityName, cityId))
+            if (!await _cityInfoRepository.CityNameMatchesCityId(cityName, cityId))
             {
                 return Forbid();
             }
