@@ -40,6 +40,12 @@ namespace CityInfo.API.Controllers
             return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDTO>>(cityEntities));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">The id of the city ti get</param>
+        /// <param name="includePointsOfInterest">Whether or not points of interest are included</param>
+        /// <returns>An IActionResult</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCity(
             int id, bool includePointsOfInterest = false)
