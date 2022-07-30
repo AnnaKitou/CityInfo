@@ -8,8 +8,10 @@ using System.Text.Json;
 namespace CityInfo.API.Controllers
 {
     [ApiController]
-  //  [Authorize]
-    [Route("api/cities")]
+    //  [Authorize]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}c/ities")]
     public class CitiesController : ControllerBase
     {
         private readonly ICityInfoRepository _cityInfoRepository;
@@ -22,18 +24,18 @@ namespace CityInfo.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDTO>>> GetCities(string? name,string? searchQuery,int pageNumber=1, int pageSize=10)
+        public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDTO>>> GetCities(string? name, string? searchQuery, int pageNumber = 1, int pageSize = 10)
         {
-            if (pageSize>maxPageSize)
+            if (pageSize > maxPageSize)
             {
                 pageSize = maxPageSize;
             }
 
-            var (cityEntities , paginationMetadata)= await _cityInfoRepository
-                .GetCitiesAsync(name,searchQuery,pageNumber,pageSize);
+            var (cityEntities, paginationMetadata) = await _cityInfoRepository
+                .GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
 
             Response.Headers.Add("X-Pagination"
-                ,JsonSerializer.Serialize(paginationMetadata));
+                , JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDTO>>(cityEntities));
         }
