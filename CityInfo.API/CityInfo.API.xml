@@ -8,9 +8,10 @@
             <summary>
             
             </summary>
-            <param name="id">The id of the city ti get</param>
+            <param name="id">The id of the city to get</param>
             <param name="includePointsOfInterest">Whether or not points of interest are included</param>
             <returns>An IActionResult</returns>
+            <response code="200">Returns the requested city</response>
         </member>
         <member name="P:CityInfo.API.Models.CityWithoutPointsOfInterestDTO.Id">
             <summary>
